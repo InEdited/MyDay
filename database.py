@@ -40,7 +40,7 @@ cursor.execute('''CREATE TABLE admin(
     a_id integer  PRIMARY KEY NOT NULL ,
     name VARCHAR NOT NULL,
     password VARCHAR NOT NULL
-)
+) 
 ''')
 
 
@@ -53,8 +53,14 @@ cursor.execute('''CREATE TABLE catalog(
 
 cursor.execute("DROP TABLE IF EXISTS user_review_service")
 cursor.execute('''CREATE TABLE user_review_service(
-    u_id integer  PRIMARY KEY NOT NULL ,
-    s_id VARCHAR NOT NULL,
+    u_id integer  PRIMARY KEY NOT NULL 
+                    REFERENCES user(u_id) 
+                    ON UPDATE CASCADE
+                    ON DELETE CASCADE,
+    s_id VARCHAR NOT NULL
+                    REFERENCES service(s_id) 
+                    ON UPDATE CASCADE
+                    ON DELETE CASCADE,
     feedback VARCHAR,
     rate INTEGER 
 )
@@ -69,14 +75,26 @@ cursor.execute('''CREATE TABLE sub_catalog(
 
 cursor.execute("DROP TABLE IF EXISTS service_has_sub_catalog")
 cursor.execute('''CREATE TABLE service_has_sub_catalog(
-    s_id integer  PRIMARY KEY NOT NULL ,
-    name VARCHAR NOT NULL
+    s_id integer  PRIMARY KEY NOT NULL 
+                    REFERENCES service(s_id) 
+                    ON UPDATE CASCADE
+                    ON DELETE CASCADE,
+    s_code VARCHAR NOT NULL
+                    REFERENCES sub_catalog(s_code) 
+                    ON UPDATE CASCADE
+                    ON DELETE CASCADE
 )
 ''')
 
 cursor.execute("DROP TABLE IF EXISTS catalog_has_sub_catalog")
 cursor.execute('''CREATE TABLE catalog_has_sub_catalog(
-    c_code integer  PRIMARY KEY NOT NULL ,
+    c_code integer  PRIMARY KEY NOT NULL 
+                    REFERENCES catalog(c_code) 
+                    ON UPDATE CASCADE
+                    ON DELETE CASCADE,
     s_code VARCHAR NOT NULL
+                    REFERENCES sub_catalog(s_code) 
+                    ON UPDATE CASCADE
+                    ON DELETE CASCADE
 )
 ''')
