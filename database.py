@@ -29,7 +29,7 @@ cursor.execute('''CREATE TABLE service(
     name VARCHAR NOT NULL,
     location VARCHAR NOT NULL,
     description VARCHAR NOT NULL,
-    website VARCHAR NOT NULL,
+    website VARCHAR ,
     working_hr VARCHAR NOT NULL,
     workin_days VARCHAR NOT NULL
 )
@@ -53,7 +53,7 @@ cursor.execute('''CREATE TABLE catalog(
 
 cursor.execute("DROP TABLE IF EXISTS user_review_service")
 cursor.execute('''CREATE TABLE user_review_service(
-    u_id integer  PRIMARY KEY NOT NULL 
+    u_id integer  NOT NULL 
                     REFERENCES user(u_id) 
                     ON UPDATE CASCADE
                     ON DELETE CASCADE,
@@ -75,7 +75,7 @@ cursor.execute('''CREATE TABLE sub_catalog(
 
 cursor.execute("DROP TABLE IF EXISTS service_has_sub_catalog")
 cursor.execute('''CREATE TABLE service_has_sub_catalog(
-    s_id integer  PRIMARY KEY NOT NULL 
+    s_id integer  NOT NULL 
                     REFERENCES service(s_id) 
                     ON UPDATE CASCADE
                     ON DELETE CASCADE,
@@ -88,7 +88,7 @@ cursor.execute('''CREATE TABLE service_has_sub_catalog(
 
 cursor.execute("DROP TABLE IF EXISTS catalog_has_sub_catalog")
 cursor.execute('''CREATE TABLE catalog_has_sub_catalog(
-    c_code integer  PRIMARY KEY NOT NULL 
+    c_code integer  NOT NULL 
                     REFERENCES catalog(c_code) 
                     ON UPDATE CASCADE
                     ON DELETE CASCADE,

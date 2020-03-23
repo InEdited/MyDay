@@ -10,6 +10,11 @@ def home():
 def about():
     return render_template('about.html')
 
+@app.route("/catalog/<name>")
+def catalog(name):    
+    return render_template('catalog.html')
+
+
 if __name__ == "__main__":
-    app.run(debug=True,host='0.0.0.0',port='4000')
+    app.run(debug=True,host='0.0.0.0',port=4000)
 

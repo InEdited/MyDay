@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/bootstrap.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/bruhwtf.css') }}">
+
+    </head>
+    <body>
+        <style>
+            body{
+            background-image: url("{{ url_for('static',    filename='images/background.jpg') }}");
+            }
+            
+            .bg { background:url("{{ url_for('static',    filename='idk.jpeg') }}") center;
+            height: 100vh;
+     background-size: cover; }
+        </style>
+        <div class="topnav">
+
+            <!-- Centered link -->
+            <ul class="navi">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/todo">Todo List</a></li>
+
+
+                <div class="topnav-right">
+                    <a href="#Login">Login</a>
+                    <a href="#Register">Register</a>
+                  </div>
+              </ul>
+        </div>
+        <div class="logo-handler">
+            <img src="{{ url_for('static',    filename='logo.jpg.webp') }}" alt="Flowers in Chania" class="logo-css">
+        </div>
+        <div class="weird-area">
+               <h1 class="welcome-nibbas">Women's fashion</h1>
+        </div>
+     
+
+        <div class="container-fluid"> 
+            <div class="row ">
+                <div class="col-sm-6 bg">
+                    
+                </div>
+                <div class="col-sm-6 bg-dark text-white">
+                    <div class="row pt-5">
+                        <div class="col-md-8 col-sm-10 offset-sm-1 offset-md-2">
+                            <hr>
+                            <h4>Women's fashion</h4>
+                            <hr>
+                            <hr>
+                            <p>Women's fashion to get you going and confident on your day</p>
+                            <hr>
+                            <div class="weird-area">
+                                <button class="button button2">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="logo-handler">
+            <img src="{{ url_for('static',    filename='logo.jpg.webp') }}" alt="Flowers in Chania" class="logo-css">
+          </div>
+        </body>
+    </html> 
