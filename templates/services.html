@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/bootstrap.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/bruhwtf.css') }}">
+
+    </head>
+    <body>
+        <style>
+            body{
+            background-image: url("{{ url_for('static',    filename='images/background.jpg') }}");
+            }
+            
+            .bg { background:url("{{ url_for('static',    filename='idk.jpeg') }}") center;
+            height: 100vh;
+     background-size: cover; }
+        </style>
+        <div class="topnav">
+
+            <!-- Centered link -->
+            <ul class="navi">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/todo">Todo List</a></li>
+
+
+                <div class="topnav-right">
+                    <a href="/Login">Login</a>
+                    <a href="/Register">Register</a>
+                  </div>
+              </ul>
+        </div>
+        <div class="logo-handler">
+            <img src="{{ url_for('static',    filename='logo.jpg.webp') }}" alt="Flowers in Chania" class="logo-css">
+        </div>
+        <div class="weird-area">
+               <h1 class="welcome-nibbas">Shops</h1>
+        </div>
+
+            <div class="grid-container">
+            {% for thing in things %}
+            <div class="grid-item">
+                <div class="weird-area">
+                    <a href="/sub_catalogs/women_fashions">
+                    <button class="button button2" style="background-color:fuchsia">{{thing[0]}}</button>
+                    </a>
+                </div>
+                
+            </div>
+                
+             {% endfor %}
+
+
+            </div>
+
+        <div class="logo-handler">
+            <img src="{{ url_for('static',    filename='logo.jpg.webp') }}" alt="Flowers in Chania" class="logo-css">
+          </div>
+        </body>
+    </html> 
