@@ -10,7 +10,6 @@ def initDB():
     return cursor
 
 def get_sub_catalogs(name):
-    print("yallayaba")
     cursor = initDB()
     #get subcats
     cursor.execute('''
@@ -29,7 +28,7 @@ def get_sub_catalogs(name):
         SELECT name FROM sub_catalog where s_code=?
         ''',(str(code[0]),))
         service_data.append(cursor.fetchall())
-    print(service_data)
+    #print(service_data)
     return service_data
 
 
@@ -40,7 +39,6 @@ def get_services(name):
     SELECT s_code FROM sub_catalog where name=?
     ''',(str(name),))
     sub_catalog_code = cursor.fetchall()
-    print(sub_catalog_code[0][0])
     cursor.execute('''
     SELECT name FROM 
     (
