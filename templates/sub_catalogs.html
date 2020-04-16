@@ -23,9 +23,14 @@
                 <li><a href="/todo">Todo List</a></li>
 
 
+
                 <div class="topnav-right">
+                    {% if current_user.is_anonymous %}
                     <a href="/Login">Login</a>
                     <a href="/Register">Register</a>
+                    {% else %}
+                    <a href="/Logout">Logout</a>
+                    {% endif %}
                   </div>
               </ul>
         </div>
@@ -35,6 +40,7 @@
         <div class="weird-area">
                <h1 class="welcome-nibbas">Women's fashion</h1>
         </div>
+        <h1 class="welcome-nibbas">Sub Catalogue</h1>
 
             <div class="grid-container">
             {% for thing in things %}

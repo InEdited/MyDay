@@ -25,8 +25,12 @@
 
 
                 <div class="topnav-right">
-                    <a href="login.html">Login</a>
-                    <a href="register.html">Register</a>
+                    {% if current_user.is_anonymous %}
+                    <a href="/Login">Login</a>
+                    <a href="/Register">Register</a>
+                    {% else %}
+                    <a href="/Logout">Logout</a>
+                    {% endif %}
                   </div>
               </ul>
         </div>

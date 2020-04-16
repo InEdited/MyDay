@@ -1,19 +1,26 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css">
-
-        <link rel="stylesheet" type="text/css" href="bruhwtf.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/bootstrap.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/bruhwtf.css') }}">
 
     </head>
     <body>
+        <style>
+            body{
+            background-image: url("static/images/background.jpg");
+            }
+            
+            .bg { background:url("static/idk.jpeg") center;
+            height: 100vh;
+     background-size: cover; }
+        </style>
         <div class="topnav">
 
             <!-- Centered link -->
             <ul class="navi">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="todo.html">Todo List</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/todo">Todo List</a></li>
 
 
                 <div class="topnav-right">
@@ -23,7 +30,7 @@
               </ul>
         </div>
         <div class="logo-handler">
-            <img src="logo.jpg.webp" alt="Flowers in Chania" class="logo-css" height=100  width=110  >
+            <img src="static/logo.jpg.webp" alt="Flowers in Chania" class="logo-css" height=100  width=110  >
         </div>
         <div class="weird-area">
                <h1 class="welcome-nibbas">Login</h1>
@@ -38,9 +45,9 @@
                 <div class="card">
                     <div class="card-header">Login</div>
                     <div class="card-body">
-                        <form action="" method="">
+                        <form action="" method="post">
                             <div class="form-group row">
-                                <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                <label for="email_address" class="col-md-4 col-form-label text-md-right">Username</label>
                                 <div class="col-md-6">
                                     <input type="text" id="email_address" class="form-control" name="email-address" required autofocus>
                                 </div>
@@ -85,7 +92,7 @@
     
 
         <div class="logo-handler">
-            <img src="logo.jpg.webp" alt="Flowers in Chania" class="logo-css" height=100  width=110  >
+            <img src="static/logo.jpg.webp" alt="Flowers in Chania" class="logo-css" height=100  width=110  >
           </div>
         </body>
     </html> 
