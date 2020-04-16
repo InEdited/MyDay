@@ -15,20 +15,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + dbPath
 db = SQLAlchemy(app)
 app.config['SECRET_KEY'] = "eraseme"
 
-class User(UserMixin, db.Model):
+class User( db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80))
     email = db.Column(db.String(120))
     password = db.Column(db.String(80))
-        
+            # Flask-Login integration
+
 
 @login_manager.user_loader
 def load_user(user_id):
-    if User.query.get(int(user_id)):
-        print(User.query.get(int(user_id)))
-        return User.query.get(int(user_id))
-    else:
-        return None
+    return User.query.get(int(user_id))
 
 @app.route("/")
 def home():
@@ -45,10 +42,10 @@ def login():
     if request.method == 'POST':
         username = request.form['email-address']
         password = request.form['password']     
-        print(username)   
+        #print(username)   
         login = User.query.filter_by(username=username, password=password).first()
         if login is not None:
-            login_user(username)
+            login_user(login)
             return flask.redirect(flask.url_for("home"))
         else:
             return flask.abort(401)
@@ -91,8 +88,6 @@ def debug():
     db.get_services("Shops")
 
 @app.route("/todo")
-@login_required
-
 def todo():
     return render_template('todo.html')
 
