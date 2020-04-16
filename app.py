@@ -1,7 +1,7 @@
 from flask import Flask , request, render_template
 import flask, flask_login, os
 from flask_login import  LoginManager, current_user, login_user, logout_user, login_required, UserMixin
-import DBUtil as db
+import DBUtil as dbUtil
 from flask_sqlalchemy import SQLAlchemy
 
 dirPath = os.path.abspath(os.path.dirname(__file__))
@@ -74,12 +74,12 @@ def catalog(name):
 @app.route("/sub_catalogs/<name>")
 def subcatalog(name):
     # women_fashions
-    stuff = db.get_sub_catalogs(name)
+    stuff = dbUtil.get_sub_catalogs(name)
     return render_template('sub_catalogs.html', things = stuff)
 
 @app.route("/sub_catalogs/services/<name>")
 def services(name):
-    stuff = db.get_services(name)
+    stuff = dbUtil.get_services(name)
     return render_template('services.html', things = stuff)
 
 
