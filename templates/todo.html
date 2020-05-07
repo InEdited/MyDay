@@ -3,8 +3,14 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/bruhwtf.css') }}">
 
+
+        <script src="{{ url_for('static',    filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static',    filename='js/jquery-ui.min.js') }}"></script>
+        <script src="{{ url_for('static',    filename='js/jquery.ui.touch-punch-improved.js') }}"></script>
+        <script src="{{ url_for('static',    filename='js/bootstrap.min.js') }}"></script>
+
     </head>
-    <body>
+    <body onload="fetchTask()">
         <style>
             body{
             background-image: url("static/images/background.jpg");
@@ -36,189 +42,113 @@
         <div class="logo-handler">
             <img src="static/logo.jpg.webp" alt="Flowers in Chania" class="logo-css" height=100  width=110  >
         </div>
-        <div class="weird-area">
-               <h1 class="welcome-nibbas">Login</h1>
-        </div>
-     
 
-       
-<main class="login-form">
-    <div class="cotainer">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="container">
-                        <h2 class="text-center">Todo List</h2>
-                
-                            <div class="form-group">
-                                <label for="itemInput">Add Item</label>
-                                <input type="text" class="form-control" name="" id="itemInput" >
-                            </div>
-                                <button id="addButton" class="btn btn-primary">Add To List</button>
-                                <button id="clearButton" class="btn btn-danger">Clear Todo List</button>
-                        <h3>Todo List</h3>
-                        <ul id="todoList"></ul>
-                
-                    </div>
+
+     <div class="container">
+         <div class="jumbotron" style="background-color: white;">
+            <form id="myForm">
+                <div class="form-group">
+                    <label >Taske Name</label>
+                    <input class="form-control" type="text" name="" id="taskName"/>
+                </div>
+                <div class="form-group">
+                    <label >Task description</label>
+                    
+                    <textarea class="form-control" id="taskDescription"  rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <Label>Task date</Label>
+                    <input class="form-control" type="date" name="" id="taskDate"/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-danger" style="background-color:fuchsia" type="submit" onclick="fetchTask()" >Save Task</button>
+                </div>
+            </form>
+        </div>
+     </div>
+<div class="">
+         <div class="jumbotron" style="background-color: white;">
+         <div class="row-marketing">
+            <div class="col-lg-12">
+                <div id="taskResults">
+
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
-    <!--bruh dont open this ever again-->
-    <script>
-        
-
-var addButton = document.getElementById('addButton');
-var addInput = document.getElementById('itemInput');
-var todoList = document.getElementById('todoList');
-var listArray = [];
-//declare addToList function
-
-function listItemObj(content, status) {
-    this.content = '';
-    this.status = 'incomplete';
-}
-var changeToComp = function(){
-    var parent = this.parentElement;
-    console.log('Changed to complete');
-    parent.className = 'uncompleted well';
-    this.innerText = 'Incomplete';
-    this.removeEventListener('click',changeToComp);
-    this.addEventListener('click',changeToInComp);
-    changeListArray(parent.firstChild.innerText,'complete');
-
-}
-
-var changeToInComp = function(){
-    var parent = this.parentElement;
-    console.log('Changed to incomplete');
-    parent.className = 'completed well';
-    this.innerText = 'Complete';
-    this.removeEventListener('click',changeToInComp);
-    this.addEventListener('click',changeToComp);
-
-    changeListArray(parent.firstChild.innerText,'incomplete');
-
-}
-
-var removeItem = function(){
-    var parent = this.parentElement.parentElement;
-    parent.removeChild(this.parentElement);
-
-    var data = this.parentElement.firstChild.innerText;
-    for(var i=0; i < listArray.length; i++){
-
-        if(listArray[i].content == data){
-            listArray.splice(i,1);
-            refreshLocal();
-            break;
-        }
-    }
-
-
-}
-
-//function to change the todo list array
-var changeListArray = function(data,status){
-
-    for(var i=0; i < listArray.length; i++){
-
-        if(listArray[i].content == data){
-            listArray[i].status = status;
-            refreshLocal();
-            break;
-        }
-    }
-}
-
-//function to chage the dom of the list of todo list
-var createItemDom = function(text,status){
-
-    var listItem = document.createElement('li');
-
-    var itemLabel = document.createElement('label');
-
-    var itemCompBtn = document.createElement('button');
-
-    var itemIncompBtn = document.createElement('button');
-
-    listItem.className = (status == 'incomplete')?'completed well':'uncompleted well';
-
-    itemLabel.innerText = text;
-    itemCompBtn.className = 'btn btn-success';
-    itemCompBtn.innerText = (status == 'incomplete')?'Complete':'Incomplete';
-    if(status == 'incomplete'){
-        itemCompBtn.addEventListener('click',changeToComp);
-    }else{
-        itemCompBtn.addEventListener('click',changeToInComp);
-    }
-
-
-    itemIncompBtn.className = 'btn btn-danger';
-    itemIncompBtn.innerText = 'Delete';
-    itemIncompBtn.addEventListener('click',removeItem);
-
-    listItem.appendChild(itemLabel);
-    listItem.appendChild(itemCompBtn);
-    listItem.appendChild(itemIncompBtn);
-
-    return listItem;
-}
-
-var refreshLocal = function(){
-    var todos = listArray;
-    localStorage.removeItem('todoList');
-    localStorage.setItem('todoList', JSON.stringify(todos));
-}
-
-var addToList = function(){
-    var newItem = new listItemObj();
-    newItem.content = addInput.value;
-    listArray.push(newItem);
-    //add to the local storage
-    refreshLocal();
-    //change the dom
-    var item = createItemDom(addInput.value,'incomplete');
-    todoList.appendChild(item);
-    addInput.value = '';
-}
-
-//function to clear todo list array
-var clearList = function(){
-    listArray = [];
-    localStorage.removeItem('todoList');
-    todoList.innerHTML = '';
-
-}
-
-window.onload = function(){
-    var list = localStorage.getItem('todoList');
-
-    if (list != null) {
-        todos = JSON.parse(list);
-        listArray = todos;
-
-        for(var i=0; i<listArray.length;i++){
-            var data = listArray[i].content;
-
-            var item = createItemDom(data,listArray[i].status);
-            todoList.appendChild(item);
-        }
-
-    }
-
-};
-//add an event binder to the button
-addButton.addEventListener('click',addToList);
-clearButton.addEventListener('click',clearList);
-    </script>
+         </div>
+         </div> 
+</div> 
+                
 </main>
-
-<div class="weird-area">
+<script>
+    document.getElementById('myForm').addEventListener('submit', saveTask);
     
+    function simpleStringify (object){
+    var simpleObject = {};
+    for (var prop in object ){
+        if (!object.hasOwnProperty(prop)){
+            continue;
+        }
+        if (typeof(object[prop]) == 'object'){
+            continue;
+        }
+        if (typeof(object[prop]) == 'function'){
+            continue;
+        }
+        simpleObject[prop] = object[prop];
+    }
+    return JSON.stringify(simpleObject); // returns cleaned up JSON
+};
+function saveTask(e){
+    var taskName = document.getElementById("taskName").value;
+    var taskDescription = document.getElementById("taskDescription").value;
+    var taskDate = document.getElementById("taskDate").value;
+    
+    var task = {
+    name:taskName,
+    description:taskDescription,
+    date:taskDate
+    }
+    e.preventDefault();
+    if(localStorage.getItem('tasks')==null){
+        var tasks =[]; 
+        tasks.push(task);
+        localStorage.setItem('tasks',JSON.stringify(tasks));
+    }
+    else{
+        var myTask = JSON.parse(localStorage.getItem('tasks')); 
+        console.log(simpleStringify(myTask))
+        myTask.push(task);
+        // then reset the localStorage
+        localStorage.setItem('tasks',simpleStringify(myTask));
+    }
+}
 
-        <div class="logo-handler">
-          </div>
-        </body>
+function fetchTask(){
+    console.log('yasater');
+    
+    var taskret = JSON.parse(localStorage.getItem('tasks'));
+
+    var taskResult =  document.getElementById('taskResults');
+    taskResult.innerHTML = " ";
+
+    for (let i = 0; i < taskret.length; i++) {
+        var name   = taskret[i].name;
+        var description = taskret[i].description;        
+        var date = taskret[i].date;        
+        console.log(name);
+        console.log('asdfasd');
+        taskResult.innerHTML+= '<div class="card"><h3>Task:  '+name+'</h3> <h3>Description:  '+description+'</h3> <h3> DATE:  '+date+' </h3> <button class="btn btn-danger"  type="submit" onclick="removeKolo()">Done</button> '
+        '</div>'
+    }
+}
+
+function removeKolo(){
+    localStorage.clear();
+    fetchTask();
+}
+
+
+</script>
+
+</body>
     </html> 
